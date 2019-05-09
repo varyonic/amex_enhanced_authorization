@@ -1,8 +1,8 @@
 # AmexEnhancedAuthorization
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/amex_enhanced_authorization`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Unofficial Ruby wrapper for American Express Enhanced Authorization
+published via the [amex developer portal](https://developer.americanexpress.com/products/enhanced-authorization-v2/),
+see also [amex-api-java-client-core](https://github.com/americanexpress/amex-api-java-client-core).
 
 ## Installation
 
@@ -15,10 +15,6 @@ gem 'amex_enhanced_authorization'
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install amex_enhanced_authorization
 
 ## Usage
 
