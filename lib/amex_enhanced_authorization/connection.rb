@@ -14,6 +14,18 @@ module AmexEnhancedAuthorization
       @logger = logger
     end
 
+    def online_purchase(params)
+      payload = OnlinePurchasePayload.new(params).to_json
+      JSON.parse send_authorized_request('POST', 'online_purchases', payload)
+    end
+
+    def send_authorized_request(method, route, payload = nil)
+      resource_path = "#{base_path}/#{route}"
+      authorization = hmac_authorization(method, resource_path, payload)
+      request = Request.new(method, "https://#{host}#{resource_path}", client_id, logger)
+      request.send(payload, authorization)
+    end
+
     # @param [String] method, e.g. 'POST'
     # @param [String] resource_path, e.g. '/payments/digital/v2/tokens/provisioning'
     # @param [String] JSON payload

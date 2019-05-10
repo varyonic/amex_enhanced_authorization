@@ -6,6 +6,31 @@ RSpec.describe AmexEnhancedAuthorization do
   let(:host) { 'api.qasb.americanexpress.com' }
   let(:client_id) { ENV.fetch('AEEA_CLIENT_ID') }
   let(:client_secret) { ENV.fetch('AEEA_CLIENT_SECRET') }
+  let(:transaction_params) do
+    {
+      card_number: '375987654321001',
+      amount: '100',
+      timestamp: Time.now,
+      currency_code: '840',
+      card_acceptor_id: '1030026553'
+    }
+  end
+  let(:purchaser_information) do
+    {
+      customer_email: "customer@wal.com",
+      billing_address: "1234 Main Street",
+      billing_postal_code: "12345",
+      billing_first_name: "Test",
+      billing_last_name: "User",
+      billing_phone_number: "6028888888",
+      shipto_address: "1234 Main Street",
+      shipto_postal_code: "12345",
+      shipto_first_name: "Test",
+      shipto_last_name: "User",
+      shipto_phone_number: "6028888888",
+      shipto_country_code: "840",
+    }
+  end
 
   subject do
     AmexEnhancedAuthorization::Connection.new(
@@ -42,5 +67,10 @@ RSpec.describe AmexEnhancedAuthorization do
         expect(authorization).to match(%Q{,bodyhash="#{bodyhash}"})
       end
     end
+  end
+
+  it 'obtains a risk score and related data' do
+    response = subject.online_purchase(transaction_params.merge purchaser_information)
+    expect(response.class).to eq Hash
   end
 end
