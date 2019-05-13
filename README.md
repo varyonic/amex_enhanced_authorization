@@ -1,5 +1,7 @@
 # AmexEnhancedAuthorization
 
+[![Travis CI Status](https://secure.travis-ci.org/varyonic/amex_enhanced_authorization.svg)](https://travis-ci.org/varyonic/amex_enhanced_authorization)
+
 Unofficial Ruby wrapper for American Express Enhanced Authorization
 published via the [amex developer portal](https://developer.americanexpress.com/products/enhanced-authorization-v2/),
 see also [amex-api-java-client-core](https://github.com/americanexpress/amex-api-java-client-core).
