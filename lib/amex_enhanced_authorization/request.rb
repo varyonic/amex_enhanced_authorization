@@ -21,7 +21,7 @@ module AmexEnhancedAuthorization
 
     def headers
       Hash[
-        'Content-Type' => 'application/json',
+        'Content-Type' => 'application/json; charset=utf-8',
         'Content-Language' => 'en-US',
         'x-amex-api-key' => client_id,
         'x-amex-request-id' => SecureRandom.uuid,
