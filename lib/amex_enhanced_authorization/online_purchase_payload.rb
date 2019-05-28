@@ -13,13 +13,13 @@ module AmexEnhancedAuthorization
 
     def to_json
       payload = {
-        timestamp: Time.now.utc.strftime('%Y-%m-%dT%H:%M:%S.%LZ'),
+        timestamp: strftime(Time.now),
         transaction_data: {
-          card_acceptor_id: card_acceptor_id, # aka. SE10 or Merchant code
+          card_acceptor_id: card_acceptor_id.to_s, # aka. SE10 or Merchant code
           card_number: card_number,
-          amount: amount,
+          amount: amount.to_s,
           currency_code: currency_code,
-          transaction_timestamp: timestamp.utc.strftime('%Y-%m-%dT%H:%M:%S.%LZ'),
+          transaction_timestamp: strftime(timestamp),
           additional_information: { risk_score: true },
         }
       }
@@ -44,6 +44,10 @@ module AmexEnhancedAuthorization
         shipto_phone_number: shipto_phone_number,
         shipto_country_code: shipto_country_code,
       }.compact
+    end
+
+    def strftime(timestamp)
+      timestamp.utc.strftime('%Y-%m-%dT%H:%M:%S.%L%Z')
     end
   end
 end
