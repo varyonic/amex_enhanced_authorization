@@ -47,7 +47,7 @@ module AmexEnhancedAuthorization
     end
 
     def strftime(timestamp)
-      timestamp.utc.strftime('%Y-%m-%dT%H:%M:%S.%L%Z')
+      timestamp.utc.strftime('%Y-%m-%dT%H:%M:%S.%L%:z')
     end
   end
 end
