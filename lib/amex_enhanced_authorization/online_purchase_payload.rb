@@ -6,6 +6,7 @@ module AmexEnhancedAuthorization
     attr_accessor :customer_email
     attr_accessor :billing_address, :billing_postal_code, :billing_first_name, :billing_last_name, :billing_phone_number
     attr_accessor :shipto_address, :shipto_postal_code, :shipto_first_name, :shipto_last_name, :shipto_phone_number, :shipto_country_code
+    attr_accessor :device_ip
 
     def initialize(params)
       params.each_pair { |k, v| send "#{k}=", v }
@@ -43,6 +44,7 @@ module AmexEnhancedAuthorization
         shipto_last_name: shipto_last_name,
         shipto_phone_number: shipto_phone_number,
         shipto_country_code: shipto_country_code,
+        device_ip: device_ip,
       }.compact
     end
 

@@ -29,6 +29,7 @@ RSpec.describe AmexEnhancedAuthorization do
       shipto_last_name: "User",
       shipto_phone_number: "6028888888",
       shipto_country_code: "840",
+      device_ip: "10.0.0.0",
     }
   end
 
