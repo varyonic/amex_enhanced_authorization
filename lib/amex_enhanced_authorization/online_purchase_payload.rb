@@ -36,7 +36,7 @@ module AmexEnhancedAuthorization
         billing_address: billing_address,
         billing_postal_code: billing_postal_code,
         billing_first_name: billing_first_name,
-        billing_last_name: billing_last_name,
+        billing_last_name: ascify(billing_last_name),
         billing_phone_number: billing_phone_number,
         shipto_address: shipto_address,
         shipto_postal_code: shipto_postal_code,
@@ -46,6 +46,12 @@ module AmexEnhancedAuthorization
         shipto_country_code: shipto_country_code,
         device_ip: device_ip,
       }.compact
+    end
+
+    def ascify(s)
+      s && s.tr( 
+"ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž", 
+"AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz")
     end
 
     def strftime(timestamp)
