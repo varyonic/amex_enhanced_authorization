@@ -33,7 +33,7 @@ module AmexEnhancedAuthorization
     def purchaser_information
       @purchaser_information ||= {
         customer_email: customer_email,
-        billing_address: billing_address,
+        billing_address: ascify(billing_address),
         billing_postal_code: billing_postal_code,
         billing_first_name: billing_first_name,
         billing_last_name: ascify(billing_last_name),
@@ -41,7 +41,7 @@ module AmexEnhancedAuthorization
         shipto_address: shipto_address,
         shipto_postal_code: shipto_postal_code,
         shipto_first_name: shipto_first_name,
-        shipto_last_name: shipto_last_name,
+        shipto_last_name: ascify(shipto_last_name),
         shipto_phone_number: shipto_phone_number,
         shipto_country_code: shipto_country_code,
         device_ip: device_ip,
