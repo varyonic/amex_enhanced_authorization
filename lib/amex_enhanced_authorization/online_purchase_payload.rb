@@ -33,19 +33,23 @@ module AmexEnhancedAuthorization
     def purchaser_information
       @purchaser_information ||= {
         customer_email: customer_email,
-        billing_address: ascify(billing_address),
-        billing_postal_code: billing_postal_code,
-        billing_first_name: billing_first_name,
-        billing_last_name: ascify(billing_last_name),
+        billing_address: munge(billing_address, /[^A-Za-z0-9 ]/, 70),
+        billing_postal_code: munge(billing_postal_code, /[^A-Za-z0-9\- ]/, 9),
+        billing_first_name: munge(billing_first_name, /[^A-Za-z0-9 ]/, 30),
+        billing_last_name: munge(billing_last_name, /[^A-Za-z0-9 ]/,  30),
         billing_phone_number: billing_phone_number,
-        shipto_address: shipto_address,
+        shipto_address: munge(shipto_address, /[^A-Za-z0-9 ]/, 50),
         shipto_postal_code: shipto_postal_code,
         shipto_first_name: shipto_first_name,
-        shipto_last_name: ascify(shipto_last_name),
+        shipto_last_name: munge(shipto_last_name, /[^A-Za-z0-9 ]/, 30),
         shipto_phone_number: shipto_phone_number,
         shipto_country_code: shipto_country_code,
         device_ip: device_ip,
       }.compact
+    end
+
+    def munge(s, exp, length)
+      s && ascify(s).gsub(exp, ' ')[0..(length-1)]
     end
 
     def ascify(s)
