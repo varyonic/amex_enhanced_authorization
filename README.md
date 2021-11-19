@@ -20,7 +20,7 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+See [specs](https://github.com/varyonic/amex_enhanced_authorization/blob/master/spec/amex_enhanced_authorization_spec.rb) for sample usage.
 
 ## Development
 
@@ -30,8 +30,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/amex_enhanced_authorization.
+Bug reports and pull requests are [welcome on GitHub](https://github.com/varyonic/amex_enhanced_authorization).
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+Read the [LICENSE](LICENSE.txt) for details.
+
+Copyright (c) 2019-2021 [Varyonic](https://www.varyonic.com).
