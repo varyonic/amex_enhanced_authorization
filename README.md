@@ -1,6 +1,6 @@
 # AmexEnhancedAuthorization
 
-[![Travis CI Status](https://secure.travis-ci.org/varyonic/amex_enhanced_authorization.svg)](https://travis-ci.org/varyonic/amex_enhanced_authorization)
+[![Github Actions  ][actions_badge]][actions]
 
 Unofficial Ruby wrapper for American Express Enhanced Authorization
 published via the [amex developer portal](https://developer.americanexpress.com/products/enhanced-authorization-v2/),
@@ -39,3 +39,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 Read the [LICENSE](LICENSE.txt) for details.
 
 Copyright (c) 2019-2021 [Varyonic](https://www.varyonic.com).
+
+[actions_badge]: https://github.com/varyonic/amex_enhanced_authorization/workflows/ci/badge.svg
+[actions]: https://github.com/varyonic/amex_enhanced_authorization/actions
