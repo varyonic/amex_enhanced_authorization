@@ -5,9 +5,13 @@ module AmexEnhancedAuthorization
     attr_reader :client_id, :client_secret
     attr_accessor :logger
 
+    # @param [String] host, e.g. 'api.americanexpress.com'
+    # @param [String] client_id
+    # @param [String] client_secret
+    # @param [Logger] logger
     def initialize(host:,
                    client_id:, client_secret:,
-                   logger: Logger.new('/dev/null'))
+                   logger: null_logger)
       @host = host
       @base_path = "/risk/fraud/v2/apiplatform/enhanced_authorizations".freeze
       @client_id, @client_secret = client_id, client_secret
@@ -38,6 +42,10 @@ module AmexEnhancedAuthorization
 
     def hmac_digest(s)
       Base64.strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new, client_secret, s.to_s))
+    end
+
+    def null_logger
+      Logger.new('/dev/null')
     end
   end
 end
