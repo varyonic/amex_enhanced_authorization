@@ -8,6 +8,9 @@ module AmexEnhancedAuthorization
     attr_reader :uri, :request
     attr_reader :logger
 
+    # @param [String] method, e.g. 'POST'
+    # @param [String] path, e.g. '/payments/digital/v2/tokens/provisioning'
+    # @param [Logger] logger
     def initialize(method, path, logger)
       @uri = URI(path)
       @request = Net::HTTP.const_get(method.capitalize).new(@uri)
