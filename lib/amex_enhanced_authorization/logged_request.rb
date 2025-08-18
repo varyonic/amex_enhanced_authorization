@@ -19,10 +19,12 @@ module AmexEnhancedAuthorization
 
     # Add provided headers and invoke request over HTTPS.
     # @return response
-    def send(data)
+    def send(data, options)
       headers.each_pair { |k, v| request[k] = v }
-      log_request_response(headers, data) do
-        https(uri).request(request)
+      log_request_response(headers, data, options) do
+        options[:cert] = OpenSSL::X509::Certificate.new(options[:cert]) if options[:cert].is_a?(String)
+        options[:key] = OpenSSL::PKey::RSA.new(options[:key]) if options[:key].is_a?(String)
+        https(uri, options).request(request)
       end
     end
 
@@ -33,15 +35,21 @@ module AmexEnhancedAuthorization
 
     protected
 
-    def https(uri)
-      Net::HTTP.new(uri.host, uri.port).tap { |http| http.use_ssl = true }
+    def https(uri, options = {})
+      Net::HTTP.new(uri.host, uri.port).tap do |http|
+        http.use_ssl = true
+        # Set any supported Net::HTTP options from the options hash
+        %i[verify_mode cert key ca_file].each do |opt|
+          http.public_send("#{opt}=", options[opt]) if options[opt]
+        end
+      end
     end
 
     # Log URI, method, data
     # Start timer.
     # Yield to request block.
     # Log response and time taken.
-    def log_request_response(headers, data = nil)
+    def log_request_response(headers, data = nil, options = {})
       logger.info "[#{self.class.name}] request = #{request.method} #{uri}#{data ? '?' + data : ''}"
       logger.info "[#{self.class.name}] headers = #{headers}"
       response = nil

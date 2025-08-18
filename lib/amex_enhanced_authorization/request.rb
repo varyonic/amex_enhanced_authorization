@@ -11,10 +11,10 @@ module AmexEnhancedAuthorization
     end
 
     # Return response on success or log failure and throw error.
-    def send(data, authorization)
+    def send(data, authorization, **options)
       @authorization = authorization
       request.body = data if data
-      response = super(data)
+      response = super(data, options.compact)
       fail_unless_expected_response response, Net::HTTPSuccess
       response.body
     end

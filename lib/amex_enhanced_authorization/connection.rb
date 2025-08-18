@@ -3,18 +3,26 @@ module AmexEnhancedAuthorization
     attr_reader :host
     attr_reader :base_path
     attr_reader :client_id, :client_secret
+    attr_reader :options
     attr_accessor :logger
 
     # @param [String] host, e.g. 'api.americanexpress.com'
     # @param [String] client_id
     # @param [String] client_secret
     # @param [Logger] logger
+    # @param [Hash] **options - additional HTTPS options
+    # @option [Symbol] :verify_mode, eg. OpenSSL::SSL::VERIFY_PEER (default)
+    # @option [OpenSSL::X509::Certificate] :cert
+    # @option [OpenSSL::PKey::EC] :key
+    # @option [String] :ca_file - String file path
     def initialize(host:,
                    client_id:, client_secret:,
-                   logger: null_logger)
+                   logger: null_logger,
+                   **options)
       @host = host
       @base_path = "/risk/fraud/v2/apiplatform/enhanced_authorizations".freeze
       @client_id, @client_secret = client_id, client_secret
+      @options = options
       @logger = logger
     end
 
@@ -27,7 +35,7 @@ module AmexEnhancedAuthorization
       resource_path = "#{base_path}/#{route}"
       authorization = hmac_authorization(method, resource_path, payload)
       request = Request.new(method, "https://#{host}#{resource_path}", client_id, logger)
-      request.send(payload, authorization)
+      request.send(payload, authorization, **options)
     end
 
     # @param [String] method, e.g. 'POST'
