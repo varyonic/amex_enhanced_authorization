@@ -3,7 +3,7 @@ RSpec.describe AmexEnhancedAuthorization do
     expect(AmexEnhancedAuthorization::VERSION).not_to be nil
   end
 
-  let(:host) { 'api.qasb.americanexpress.com' }
+  let(:host) { 'apiproducts-qa.americanexpress.com' }
   let(:client_id) { ENV.fetch('AEEA_CLIENT_ID') }
   let(:client_secret) { ENV.fetch('AEEA_CLIENT_SECRET') }
   let(:transaction_params) do
@@ -43,7 +43,7 @@ RSpec.describe AmexEnhancedAuthorization do
 
   before { subject.logger = Logger.new(STDOUT) if ENV['AEEA_LOG'] }
 
-  context do
+  describe 'HMAC digest and authorization' do
     # Copied from amex-api-java-client-core ApiAuthenticationTest.java
     let(:host) { 'github.com' }
     let(:client_id) { "UNIT-TEST-KEY-4388-87b9-85cf463231d7" }
@@ -70,8 +70,17 @@ RSpec.describe AmexEnhancedAuthorization do
     end
   end
 
-  it 'obtains a risk score and related data' do
-    response = subject.online_purchase(transaction_params.merge purchaser_information)
-    expect(response.class).to eq Hash
+  describe 'new endpoint (mTLS)' do
+    let(:cert) { ENV.fetch('AEEA_CERT') }
+    let(:key) { ENV.fetch('AEEA_KEY') }
+    before do
+      subject.options[:cert] = cert
+      subject.options[:key] = key
+      subject.options[:verify_mode] = OpenSSL::SSL::VERIFY_PEER
+    end
+    it 'obtains a risk score and related data' do
+      response = subject.online_purchase(transaction_params.merge purchaser_information)
+      expect(response.class).to eq Hash
+    end
   end
 end
